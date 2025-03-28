@@ -52,30 +52,32 @@
 @push('scripts')
 <script>
     // Initialize Swiper for the domaines section with unique selectors
-
-        var swiperDomaines = new Swiper(".mySwiper-domaines", {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            loop: true,
-            pagination: {
-                el: ".mySwiper-domaines-pagination",
-                clickable: true,
-            },
-            navigation: {
-                nextEl: ".mySwiper-domaines-next",
-                prevEl: ".mySwiper-domaines-prev",
-            },
-            breakpoints: {
-                640: { slidesPerView: 2, spaceBetween: 20 },
-                768: { slidesPerView: 3, spaceBetween: 30 },
-                1024: { slidesPerView: 4, spaceBetween: 40 },
-                1280: { slidesPerView: 5, spaceBetween: 50 }
-            },
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-        });
+    const swiperDomaines = new Swiper(".mySwiper-domaines", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        pagination: {
+        el: ".mySwiper-domaines-pagination",
+        clickable: true,
+        },
+        navigation: {
+        nextEl: ".mySwiper-domaines-next",
+        prevEl: ".mySwiper-domaines-prev",
+        },
+        breakpoints: {
+        640: { slidesPerView: 2, spaceBetween: 20 },
+        768: { slidesPerView: 3, spaceBetween: 30 },
+        1024: { slidesPerView: 4, spaceBetween: 40 },
+        1280: { slidesPerView: 5, spaceBetween: 50 }
+        },
+        autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+        },
+    });
     
+    document.addEventListener("turbo:load", () => {
+        swiperDomaines.update();
+    });
 </script>
 @endpush

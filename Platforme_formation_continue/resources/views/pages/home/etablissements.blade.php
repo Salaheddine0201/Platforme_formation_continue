@@ -79,22 +79,26 @@
             spaceBetween: 30,
             loop: true,
             pagination: {
-                el: ".mySwiper-etablissements-pagination",
-                clickable: true,
+            el: ".mySwiper-etablissements-pagination",
+            clickable: true,
             },
             navigation: {
-                nextEl: ".mySwiper-etablissements-next",
-                prevEl: ".mySwiper-etablissements-prev",
+            nextEl: ".mySwiper-etablissements-next",
+            prevEl: ".mySwiper-etablissements-prev",
             },
             breakpoints: {
-                640: { slidesPerView: 1 },
-                768: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
+            640: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
             },
             autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
+            delay: 5000,
+            disableOnInteraction: false,
             },
+        });
+
+        document.addEventListener("turbo:load", function() {
+            swiperEtablissements.init();
         });
     
 </script>

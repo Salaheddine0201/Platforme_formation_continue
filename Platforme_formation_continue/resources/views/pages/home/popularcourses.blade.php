@@ -62,33 +62,33 @@
         // Function to initialize Swiper for Popular Courses
         function initializeSwiperPopular() {
             const swiperPopular = new Swiper('.mySwiper-popular-courses', {
-                slidesPerView: 1,
-                spaceBetween: 20,
-                breakpoints: {
-                    // when window width is >= 640px
-                    640: {
-                        slidesPerView: 2,
-                    },
-                    // when window width is >= 1024px
-                    1024: {
-                        slidesPerView: 3,
-                    },
-                    // when window width is >= 1280px
-                    1280: {
-                        slidesPerView: 4,
-                    }
+            slidesPerView: 1,
+            spaceBetween: 20,
+            breakpoints: {
+                // when window width is >= 640px
+                640: {
+                slidesPerView: 2,
                 },
-                autoplay: {
-                    delay: 5000,
+                // when window width is >= 1024px
+                1024: {
+                slidesPerView: 3,
                 },
+                // when window width is >= 1280px
+                1280: {
+                slidesPerView: 4,
+                }
+            },
+            autoplay: {
+                delay: 5000,
+            },
             });
         }
 
         // Initialize Swiper on page load
-        initializeSwiperPopular();
+        document.addEventListener('DOMContentLoaded', initializeSwiperPopular);
 
         // Reinitialize Swiper after Turbo renders
-        document.addEventListener('turbo:load', initializeSwiperPopular);
+        document.addEventListener('turbo:render', initializeSwiperPopular);
     
 </script>
 @endpush
