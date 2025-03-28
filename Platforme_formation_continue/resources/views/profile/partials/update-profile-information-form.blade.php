@@ -100,7 +100,7 @@
                         x-transition:leave-end="opacity-0 transform translate-y-4"
                         class="fixed top-4 right-4 z-50 max-w-sm w-full">
                         <div class="flex items-center p-5 bg-white rounded-lg shadow-xl border-l-4 border-l-green-500">
-                            <!-- Checkmark icon with animated circle -->
+                            <!-- Icône de coche avec cercle animé -->
                             <div class="flex-shrink-0 relative">
                                 <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
                                     <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -112,9 +112,9 @@
                                 </svg>
                             </div>
                             
-                            <!-- Message with title and content -->
+                            <!-- Message avec titre et contenu -->
                             <div class="ml-4 flex-1">
-                                <h4 class="text-sm font-bold text-gray-800 mb-0.5">Success!</h4>
+                                <h4 class="text-sm font-bold text-gray-800 mb-0.5">Succès !</h4>
                                 <p class="text-sm text-gray-600">
                                     {{ session('success') }}
                                 </p>

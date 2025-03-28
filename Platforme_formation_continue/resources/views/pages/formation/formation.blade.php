@@ -24,8 +24,7 @@
             <!-- Left Column - Formation Info -->
             <div class="md:w-2/3 pr-0 md:pr-8">
                 <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">{{ $formation->nom }}</h1>
-                <p class="text-gray-600 mb-4">3 in 1 Formation: Learn to design websites with Figma, build with Webflow, and
-                    make a living freelancing.</p>
+
 
                 <!-- Rating -->
                 <div class="flex items-center mb-6">
@@ -187,14 +186,8 @@
 
                         <form action="{{ route('cart.add', $formation->id) }}" method="POST">
                             @csrf
-<<<<<<< Updated upstream
                             <button type="submit"  class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded mb-3">
                                 Ajouter au panier
-=======
-                            <button type="submit"
-                                class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded mb-3">
-                                Add To Cart
->>>>>>> Stashed changes
                             </button>
                             {{-- <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add to Cart</button> --}}
                         </form>
@@ -202,7 +195,7 @@
                             @csrf
                             <button
                                 class="w-full bg-white hover:bg-gray-50 text-blue-500 font-medium py-3 px-4 rounded border border-blue-500 mb-3">
-                                Demande De Devis
+                                Demander un devis
                             </button>
                             {{-- <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add to Cart</button> --}}
                         </form>
@@ -363,13 +356,13 @@
                 @endforeach
             </div>
 
-            <!-- No Reviews Message -->
+            <!-- Message Aucun Avis -->
             <div id="no-reviews-message" class="hidden text-center py-8 text-gray-500">
-                No reviews match your selected filter.
+                Aucun avis ne correspond à votre filtre sélectionné.
             </div>
             @if (count($formation->reviews) == 0)
-                <div id="no-reviews-message" class=" text-center py-8 text-gray-500">
-                    No reviews to show.
+                <div id="no-reviews-message" class="text-center py-8 text-gray-500">
+                    Aucun avis à afficher.
                 </div>
             @endif
 
@@ -489,16 +482,16 @@
                 <!-- Message with title and content -->
                 <div class="ml-4 flex-1">
                     @if (session('status') === 'added-to-cart')
-                        <h4 class="text-sm font-bold text-gray-800 mb-0.5">Success!</h4>
+                        <h4 class="text-sm font-bold text-gray-800 mb-0.5">Succès !</h4>
                         <p class="text-sm text-gray-600">
                             La formation a été ajoutée à votre panier avec succès.
                         </p>
                     @elseif(session('status') === 'already-in-cart')
-                        <h4 class="text-sm font-bold text-gray-800 mb-0.5">Cette formation déjà dans le panier.</h4>
+                        <h4 class="text-sm font-bold text-gray-800 mb-0.5">Cette formation est déjà dans le panier.</h4>
                     @elseif(session('status') === 'added_commit')
-                        <h4 class="text-sm font-bold text-gray-800 mb-0.5">Success!</h4>
+                        <h4 class="text-sm font-bold text-gray-800 mb-0.5">Succès !</h4>
                         <p class="text-sm text-gray-600">
-                            Votre avis a été ajouté avec succès !.
+                            Votre avis a été ajouté avec succès !
                         </p>
                     @endif
                 </div>

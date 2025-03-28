@@ -35,9 +35,9 @@
     @if($wishlist->count() > 0)
         <div class="bg-white rounded-lg shadow-sm">
             <div class="flex justify-between items-center py-4 px-6 border-b">
-                <h2 class="text-xl font-semibold text-gray-800">Wishlist ({{ $wishlist->count() }})</h2>
+                <h2 class="text-xl font-semibold text-gray-800">Liste de souhaits ({{ $wishlist->count() }})</h2>
                 <button id="devis-button" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md text-sm transition-colors duration-200">
-                    Demande De Devis
+                    Demander un devis
                 </button>
             </div>
 
@@ -87,7 +87,7 @@
                                 <!-- Participant Count -->
                                 <div class="col-span-3">
                                     <div class="flex items-center justify-center space-x-2">
-                                        <button class="decrement-btn border border-gray-300 rounded-md p-1 hover:bg-gray-50">
+                  </div></div>                      <button class="decrement-btn border border-gray-300 rounded-md p-1 hover:bg-gray-50">
                                             <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
                                             </svg>
@@ -112,7 +112,7 @@
                                 <!-- Actions -->
                                 <div class="col-span-3 flex items-center justify-center space-x-3">
                                     <div class="formation-checkbox" data-formation-id="{{ $item->formation->id }}">
-                                        <button type="button" class="check-btn w-9 h-9 flex items-center justify-center rounded-md border-2 border-gray-300 hover:border-blue-500 transition-colors duration-200">
+                       </div></div>                 <button type="button" class="check-btn w-9 h-9 flex items-center justify-center rounded-md border-2 border-gray-300 hover:border-blue-500 transition-colors duration-200">
                                             <svg class="w-5 h-5 text-white check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
                                             </svg>

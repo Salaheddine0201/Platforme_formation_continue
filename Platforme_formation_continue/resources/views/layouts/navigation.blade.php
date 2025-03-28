@@ -116,8 +116,8 @@
 
           <div class="border-t border-gray-200 pt-6 flex flex-col space-y-3">
              @auth
-                @if(Auth::user()->is_admin)
-                    <x-responsive-nav-link :href="route('dashboard')"
+                @if(Auth::user()->role === 'admin')
+                    <x-responsive-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard')"
                        class="w-full py-2 px-4 text-cyan-600 border border-cyan-600 rounded-md hover:bg-cyan-50 transition-colors">
                        {{ __('Tableau de bord') }}
                     </x-responsive-nav-link>

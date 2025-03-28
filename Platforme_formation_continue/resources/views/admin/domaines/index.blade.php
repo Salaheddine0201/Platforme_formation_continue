@@ -9,11 +9,38 @@
     </x-slot>
 
     <div class="py-12">
-        @if(session('success'))
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
-                <div class="bg-green-100 text-green-800 px-4 py-2 rounded">
-                    {{ session('success') }}
+        @if (session('success'))
+            <div x-data="{ show: true }" 
+            x-show="show" 
+            x-init="setTimeout(() => show = false, 5000)"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform translate-y-4"
+            x-transition:enter-end="opacity-100 transform translate-y-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 transform translate-y-0"
+            x-transition:leave-end="opacity-0 transform translate-y-4"
+            class="fixed top-4 right-4 z-50 max-w-sm w-full">
+            <div class="flex items-center p-5 bg-white rounded-lg shadow-xl border-l-4 border-l-green-500">
+                <!-- Icône de coche avec cercle animé -->
+                <div class="flex-shrink-0 relative">
+                <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
                 </div>
+                <svg class="w-8 h-8 absolute top-0 left-0 text-green-500 animate-[spin_4s_ease-in-out_infinite]" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1" stroke-dasharray="1 3" />
+                </svg>
+                </div>
+                
+                <!-- Message avec titre et contenu -->
+                <div class="ml-4 flex-1">
+                <h4 class="text-sm font-bold text-gray-800 mb-0.5">Succès !</h4>
+                <p class="text-sm text-gray-600">
+                    {{ session('success') }}
+                </p>
+                </div>
+            </div>
             </div>
         @endif
 
