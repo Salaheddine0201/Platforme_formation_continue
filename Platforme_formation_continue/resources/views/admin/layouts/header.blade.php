@@ -12,9 +12,7 @@
         
             <nav class="flex space-x-4">
                 <a href="{{ route('welcome') }}" class="text-white hover:text-gray-200 font-medium transition-colors duration-200">Acceuil</a>
-                <a href="{{ route('formations') }}" class="text-white hover:text-gray-200 font-medium transition-colors duration-200">Formations</a>
-                <a href="{{ route('plans') }}" class="text-white hover:text-gray-200 font-medium transition-colors duration-200">Plans</a>
-                <a href="{{ route('about') }}" class="text-white hover:text-gray-200 font-medium transition-colors duration-200">About</a>
+  
             </nav>
         
 
