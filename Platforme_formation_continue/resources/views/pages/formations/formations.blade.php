@@ -6,12 +6,12 @@
 <div class="relative h-64 md:h-80 w-full overflow-hidden ">
     <!-- Hero background image -->
     <div class="absolute inset-0">
-        <img src="{{ asset('storage/images/searchFormations.png') }}" alt="Building at night" class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-black opacity-20"></div>
+        <img id="hero-image" src="{{ asset('images/searchFormations5.png') }}" alt="Building at night" class="w-full h-full object-cover">
+        <div class="absolute object-cover inset-0 bg-black opacity-20"></div>
     </div>
     
     <!-- Search bar -->
-    <div class="absolute inset-0 flex items-center justify-center">
+    <div class="absolute inset-x-0 bottom-[20%] flex items-center justify-center">
         <div class="w-full max-w-3xl px-4">
             <div class="relative">
                 <input type="text" id="search-input" placeholder="Search..." class="w-full py-3 px-5 pr-10 rounded-full shadow-lg text-gray-700">
@@ -22,6 +22,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- Main content area -->
 <div class="container mx-auto px-10  py-8 mb-20">
@@ -276,6 +277,23 @@
     
     initializeFromURL();
 
+    const image = document.querySelector("#hero-image"); // Select the image
+    const imagePaths = [
+        "{{ asset('images/searchFormations1.png') }}",
+        "{{ asset('images/searchFormations2.png') }}",
+        "{{ asset('images/searchFormations3.jpg') }}",
+        "{{ asset('images/searchFormations4.jpg') }}",
+        "{{ asset('images/searchFormations5.png') }}",
+    ];
+    
+    let index = 0;
+
+    function changeImage() {
+        index = (index + 1) % imagePaths.length;
+        image.src = imagePaths[index];
+    }
+
+    setInterval(changeImage, 10000); // Change every 10 seconds
 
 </script>
 @endpush

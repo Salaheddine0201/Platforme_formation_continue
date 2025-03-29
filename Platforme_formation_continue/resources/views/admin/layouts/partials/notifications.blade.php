@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function fetchNotifications() {
         console.log('Récupération des notifications...');
         
-        fetch("/notifications")
+        fetch('/notifications')
             .then(response => response.json())
             .then(data => {
                 notifications = data.notifications;
