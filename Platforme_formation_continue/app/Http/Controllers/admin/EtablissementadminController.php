@@ -57,7 +57,7 @@ class EtablissementadminController extends Controller
 
         $etablissement->save();
 
-        return redirect()->route('admin.etablissements.index')->with('success', 'Établissement ajouté avec succès.');
+        return redirect()->back()->with('success', 'Établissement ajouté avec succès.');
     }
 
     public function update(Request $request, $id)

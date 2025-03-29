@@ -99,6 +99,6 @@ public function index(Request $request)
 
         $domaine->delete();
 
-        return redirect()->route('admin.domaines.index')->with('success', 'Domaine supprimé avec succès.');
+        return redirect()->back()->with('success', 'Domaine supprimé avec succès.');
     }
 }

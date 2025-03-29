@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Formation;
 use App\Models\Domaine;
 use App\Models\Etablissement;
+use Illuminate\Support\Facades\Storage;
 
 class FormationadminController extends Controller
 {
@@ -115,6 +116,9 @@ class FormationadminController extends Controller
     function destroy($id)
     {
         $formation = Formation::find($id);
+        if ($formation->image) {
+            Storage::delete('formations/' . $formation->image);
+        }
         $formation->delete();
         return redirect()->back()->with('success', 'Formation supprimée avec succès');
     }
