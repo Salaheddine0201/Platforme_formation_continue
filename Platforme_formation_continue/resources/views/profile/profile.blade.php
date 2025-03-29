@@ -7,7 +7,7 @@
 
 
     <!-- Content Area -->
-    <div class="container p-20">
+    <div class="container m-auto items-center mb-10">
         <!-- Dynamic Section -->
         <div class="card p-4">
         @if ($section == 'wishlist')

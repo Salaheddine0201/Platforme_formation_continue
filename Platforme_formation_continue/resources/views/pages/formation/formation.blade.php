@@ -5,26 +5,14 @@
     </h2>
 @endsection
 @section('content')
-    <!-- Navigation Breadcrumb -->
-    {{-- <div class="container mx-auto px-4 py-2 text-sm">
-        <div class="flex items-center space-x-2 text-gray-500">
-            <a href="#" class="hover:text-blue-500">Home</a>
-            <span>›</span>
-            <a href="#" class="hover:text-blue-500">Development</a>
-            <span>›</span>
-            <a href="#" class="hover:text-blue-500">Web Development</a>
-            <span>›</span>
-            <span class="text-gray-700">Webflow</span>
-        </div>
-    </div> --}}
-
     <!-- Main Content -->
     <div class="container mx-auto px-10 pt-20 pb-8">
         <div class="flex flex-col md:flex-row">
             <!-- Left Column - Formation Info -->
             <div class="md:w-2/3 pr-0 md:pr-8">
                 <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">{{ $formation->nom }}</h1>
-
+                {{-- <p class="text-gray-600 mb-4">3 in 1 Formation: Learn to design websites with Figma, build with Webflow, and
+                    make a living freelancing.</p> --}}
 
                 <!-- Rating -->
                 <div class="flex items-center mb-6">
@@ -189,13 +177,13 @@
                             <button type="submit"  class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded mb-3">
                                 Ajouter au panier
                             </button>
-                            {{-- <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add to Cart</button> --}}
+                           
                         </form>
                         <form action="{{ route('cart.devis', $formation->id) }}" method="POST">
                             @csrf
                             <button
                                 class="w-full bg-white hover:bg-gray-50 text-blue-500 font-medium py-3 px-4 rounded border border-blue-500 mb-3">
-                                Demander un devis
+                                Demande De Devis
                             </button>
                             {{-- <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add to Cart</button> --}}
                         </form>
@@ -257,117 +245,86 @@
     </div>
 
     {{-- reriews --}}
-    <div id="Reviews" class="container mx-auto px-10 mb-20">
-        <!-- Formation Rating Section -->
-        @if (count($formation->reviews) !== 0)
-            <div class="mt-8">
-                <h2 class="text-xl font-semibold mb-4">Evaluation du Formation</h2>
+<div id="Reviews" class="container mx-auto px-10 sm:px-6 lg:px-10 mb-20">
+    @if (count($formation->reviews) !== 0)
+        <div class="mt-8">
+            <h2 class="text-lg sm:text-xl font-semibold mb-4">Evaluation du Formation</h2>
+            <div class="flex flex-col sm:flex-row items-start sm:items-center mb-4">
+                <div class="mr-0 sm:mr-4 mb-4 sm:mb-0 text-center sm:text-left">
+                    <span class="text-2xl sm:text-3xl font-bold text-gray-800">{{ $averageRating }}</span>
+                    <div class="flex justify-center sm:justify-start text-yellow-400">
+                        @for ($i = 0; $i < 5; $i++)
+                            <i class="{{ $i < floor($averageRating) ? 'fas fa-star' : ($i < ceil($averageRating) && $averageRating - floor($averageRating) >= 0.5 ? 'fas fa-star-half-alt' : 'far fa-star') }}"></i>
+                        @endfor
+                    </div>
+                    <div class="text-sm text-gray-500">Evaluation du Formation</div>
+                </div>
+                <div class="w-full sm:flex-1">
+                    @foreach (range(5, 1) as $star)
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 mr-2">
+                                @for ($i = 0; $i < 5; $i++)
+                                    <i class="{{ $i < $star ? 'fas fa-star' : 'far fa-star' }}"></i>
+                                @endfor
+                            </div>
+                            <span class="text-xs sm:text-sm text-gray-600 mr-2">{{ $star }} étoiles</span>
+                            <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                <div class="bg-yellow-400 h-2 rounded-full" style="width: {{ $ratingPercentages[$star] }}%"></div>
+                            </div>
+                            <span class="text-xs sm:text-sm text-gray-600 ml-2">{{ $ratingPercentages[$star] }}%</span>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    @endif
 
-                <div class="flex items-center mb-4 ">
-                    <div class="mr-4">
-                        <!-- Display Average Rating -->
-                        <span class="text-3xl font-bold text-gray-800">{{ $averageRating }}</span>
-                        <div class="flex text-yellow-400">
-                            @for ($i = 0; $i < 5; $i++)
-                                <i
-                                    class="{{ $i < floor($averageRating) ? 'fas fa-star' : ($i < ceil($averageRating) && $averageRating - floor($averageRating) >= 0.5 ? 'fas fa-star-half-alt' : 'far fa-star') }}"></i>
+     <!--Comments Section -->
+    <div class="mt-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
+            <h2 class="text-lg sm:text-xl font-semibold text-gray-800">Les commentaires</h2>
+            <div class="flex items-center space-x-2 sm:space-x-3 mt-3 sm:mt-0">
+                <select id="rating-filter" class="bg-white border rounded-lg px-3 py-2 text-xs sm:text-sm focus:ring-2 focus:ring-blue-500">
+                    <option value="6">Tous les commentaires</option>
+                    <option value="5">5 étoiles</option>
+                    <option value="4">4 étoiles</option>
+                    <option value="3">3 étoiles</option>
+                    <option value="2">2 étoiles</option>
+                    <option value="1">1 étoile</option>
+                </select>
+                <button id="openRatingModal" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 text-xs sm:text-sm rounded-lg shadow-sm flex items-center">
+                    <span>Évaluer</span>
+                    <svg class="h-4 w-4 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="reviews-container">
+            @foreach ($formation->reviews as $review)
+                <div class="review-item border-t border-gray-200 py-4 flex flex-col sm:flex-row items-start" data-rating="{{ $review->note }}">
+                    <img src="{{ asset('storage/'.$review->user->image) }}" class="w-10 h-10 rounded-full mr-3">
+                    <div>
+                        <div class="flex items-center">
+                            <h3 class="font-medium text-gray-800 mr-2">{{ $review->user->name }}</h3>
+                            <span class="text-xs sm:text-sm text-gray-500">{{ $review->created_at->diffForHumans() }}</span>
+                        </div>
+                        <div class="flex text-yellow-400 my-1">
+                            @for ($i = 1; $i <= 5; $i++)
+                                <i class="{{ $i <= $review->note ? 'fas fa-star' : 'far fa-star' }}"></i>
                             @endfor
                         </div>
-                        <div class="text-sm text-gray-500">Evaluation du Formation</div>
-                    </div>
-
-                    <div class="flex-1">
-                        @foreach (range(5, 1) as $star)
-                            <!-- Display Star Rating Distribution -->
-                            <div class="flex items-center mb-1">
-                                <div class="flex text-yellow-400 mr-2">
-                                    @for ($i = 0; $i < 5; $i++)
-                                        <i class="{{ $i < $star ? 'fas fa-star' : 'far fa-star' }}"></i>
-                                    @endfor
-                                </div>
-                                <span class="text-sm text-gray-600 mr-2">{{ $star }} Star Rating</span>
-                                <div class="flex-1 bg-gray-200 rounded-full h-2">
-                                    <div class="bg-yellow-400 h-2 rounded-full"
-                                        style="width: {{ $ratingPercentages[$star] }}%"></div>
-                                </div>
-                                <span class="text-sm text-gray-600 ml-2">{{ $ratingPercentages[$star] }}%</span>
-                            </div>
-                        @endforeach
+                        <p class="text-gray-700 text-xs sm:text-sm">{{ $review->commentaire }}</p>
                     </div>
                 </div>
-            </div>
-        @endif
-
-        <!-- Reviews Section with JavaScript Filtering -->
-        <div class="mt-8">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-xl font-semibold text-gray-800">Les commentaires</h2>
-                <div class="flex items-center space-x-3">
-                    <!-- Filter Dropdown with Custom Styling -->
-                    <div class="relative">
-                        <select id="rating-filter"
-                            class="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2.5 pr-10 text-gray-700 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
-                            <option value="6">Tous les commentaires</option>
-                            <option value="5">5 étoiles</option>
-                            <option value="4">4 étoiles</option>
-                            <option value="3">3 étoiles</option>
-                            <option value="2">2 étoiles</option>
-                            <option value="1">1 étoile</option>
-                        </select>
-                    </div>
-
-                    <!-- Modal Trigger Button -->
-                    <button id="openRatingModal"
-                        class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-5 rounded-lg shadow-sm transition-all duration-200 flex items-center">
-                        <span class="text-sm">Évaluer cette formation</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" viewBox="0 0 20 20"
-                            fill="currentColor">
-                            <path
-                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-            <div id="reviews-container">
-                @foreach ($formation->reviews as $review)
-                    <div class="review-item border-t border-gray-200 py-4" data-rating="{{ $review->note }}">
-                        <div class="flex items-start">
-                            <img src="{{ asset('storage/images/formation1.png') }}" alt="{{ $review->user->name }}"
-                                class="w-10 h-10 rounded-full mr-3">
-                            <div>
-                                <div class="flex items-center">
-                                    <h3 class="font-medium text-gray-800 mr-2">{{ $review->user->name }}</h3>
-                                    <span class="text-sm text-gray-500">{{ $review->created_at->diffForHumans() }}</span>
-                                </div>
-                                <div class="flex text-yellow-400 my-1">
-                                    @for ($i = 1; $i <= 5; $i++)
-                                        @if ($i <= $review->note)
-                                            <i class="fas fa-star"></i>
-                                        @else
-                                            <i class="far fa-star"></i>
-                                        @endif
-                                    @endfor
-                                </div>
-                                <p class="text-gray-700">{{ $review->commentaire }}</p>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-            <!-- Message Aucun Avis -->
-            <div id="no-reviews-message" class="hidden text-center py-8 text-gray-500">
-                Aucun avis ne correspond à votre filtre sélectionné.
-            </div>
-            @if (count($formation->reviews) == 0)
-                <div id="no-reviews-message" class="text-center py-8 text-gray-500">
-                    Aucun avis à afficher.
-                </div>
-            @endif
-
+            @endforeach
         </div>
+        <div id="no-reviews-message" class="hidden text-center py-8 text-gray-500">No reviews match your selected filter.</div>
+        @if (count($formation->reviews) == 0)
+            <div id="no-reviews-message" class="text-center py-8 text-gray-500">No reviews to show.</div>
+        @endif
     </div>
+</div>
 
 
     <!-- Modal Backdrop -->
@@ -482,16 +439,16 @@
                 <!-- Message with title and content -->
                 <div class="ml-4 flex-1">
                     @if (session('status') === 'added-to-cart')
-                        <h4 class="text-sm font-bold text-gray-800 mb-0.5">Succès !</h4>
+                        <h4 class="text-sm font-bold text-gray-800 mb-0.5">Success!</h4>
                         <p class="text-sm text-gray-600">
                             La formation a été ajoutée à votre panier avec succès.
                         </p>
                     @elseif(session('status') === 'already-in-cart')
-                        <h4 class="text-sm font-bold text-gray-800 mb-0.5">Cette formation est déjà dans le panier.</h4>
+                        <h4 class="text-sm font-bold text-gray-800 mb-0.5">Cette formation déjà dans le panier.</h4>
                     @elseif(session('status') === 'added_commit')
-                        <h4 class="text-sm font-bold text-gray-800 mb-0.5">Succès !</h4>
+                        <h4 class="text-sm font-bold text-gray-800 mb-0.5">Success!</h4>
                         <p class="text-sm text-gray-600">
-                            Votre avis a été ajouté avec succès !
+                            Votre avis a été ajouté avec succès !.
                         </p>
                     @endif
                 </div>
@@ -501,6 +458,8 @@
 
 
     <script>
+        
+        document.addEventListener("turbo:load", () => {
         // const reviewsContainer = document.getElementById('reviews-container');
         const noReviewsMessage = document.getElementById('no-reviews-message');
         // const reviewItems = document.querySelectorAll('.review-item');
@@ -611,6 +570,7 @@
             if (event.key === 'Escape' && !backdrop.classList.contains('hidden')) {
                 closeModal();
             }
+        });
         });
     </script>
 
